@@ -14,7 +14,7 @@ const f = createUploadthing();
 
 const middleware = async () => {
   const { getUser } = getKindeServerSession();
-  const user = await getUser();
+  const user = getUser();
 
   if (!user || !user.id) throw new Error("Unauthorized");
 
@@ -102,7 +102,6 @@ const onUploadComplete = async ({
     });
   }
 };
-// FileRouter for your app, can contain multiple FileRoutes
 export const ourFileRouter = {
   // Define as many FileRoutes as you like, each with a unique routeSlug
   freePlanUploader: f({ pdf: { maxFileSize: "4MB" } })
