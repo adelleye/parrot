@@ -4,7 +4,7 @@ import { db } from "@/db";
 
 import { PDFLoader } from "langchain/document_loaders/fs/pdf";
 import { pinecone } from "@/lib/pinecone";
-import { Pinecone } from "@pinecone-database/pinecone";
+
 import { OpenAIEmbeddings } from "langchain/embeddings/openai";
 import { PineconeStore } from "langchain/vectorstores/pinecone";
 import { getUserSubscriptionPlan } from "@/lib/stripe";
