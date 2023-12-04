@@ -14,8 +14,8 @@ export default function Home() {
           </p>
         </div>
         <h1 className="max-w-4xl text-5xl font-bold md:text-6xl lg:text-7xl">
-          Chat with your <span className="text-green-600"> data</span> in
-          seconds.
+          Talking with your <span className="text-green-600"> data</span> has
+          never been easier.
         </h1>
         <p className="mt-5 max-w-prose text-zinc-700 sm:text-lg">
           Parrot transforms any PDF document into an interactive conversation
