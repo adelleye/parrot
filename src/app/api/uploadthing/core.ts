@@ -71,7 +71,7 @@ const onUploadComplete = async ({
       pagesAmt > PLANS.find((plan) => plan.name === "Free")!.pagesPerPdf;
 
     if ((isSubscribed && isProExceeded) || (!isSubscribed && isFreeExceeded)) {
-      await db.file.update({
+      const update = await db.file.update({
         data: {
           uploadStatus: "FAILED",
         },
@@ -79,6 +79,8 @@ const onUploadComplete = async ({
           id: createdFile.id,
         },
       });
+
+      console.log("Upload Status:", update.uploadStatus);
     }
 
     const pineconeIndex = pinecone.Index("parrot");
