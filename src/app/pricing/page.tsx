@@ -1,5 +1,6 @@
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import UpgradeButton from "@/components/UpgradeButton";
+import { buttonVariants } from "@/components/ui/button";
 import {
   Tooltip,
   TooltipContent,
@@ -174,20 +175,27 @@ const Page = async () => {
 
                   <div className="p-5">
                     {plan === "Free" ? (
-                      <Link href={user ? "/dashboard" : "/sign-in"}>
-                        <button className="flex w-full mx-auto  mt-2 font-semibold bg-zinc-100  py-2 rounded-lg px-40 text-black">
-                          {user ? "Get Started" : "Sign up"}
-                          <ArrowRight className="h-5 w-5 ml-1.5 mt-1" />
-                        </button>
+                      <Link
+                        href={user ? "/dashboard" : "/sign-in"}
+                        className={buttonVariants({
+                          className: "w-full",
+                          variant: "secondary",
+                        })}
+                      >
+                        {user ? "Get Started" : "Sign up"}
+                        <ArrowRight className="h-5 w-5 ml-1.5" />
                       </Link>
                     ) : user ? (
                       <UpgradeButton />
                     ) : (
-                      <Link href="/sign-in">
-                        <button className="flex mx-auto mt-2 font-semibold hover:bg-green-500  bg-green-700 text-white py-2 rounded-lg px-36">
-                          {user ? "Upgrade now" : "Sign up"}
-                          <ArrowRight className="h-5 w-5 ml-1.5" />
-                        </button>
+                      <Link
+                        href="/sign-in"
+                        className={buttonVariants({
+                          className: "w-full",
+                        })}
+                      >
+                        {user ? "Upgrade now" : "Sign up"}
+                        <ArrowRight className="h-5 w-5 ml-1.5" />
                       </Link>
                     )}
                   </div>

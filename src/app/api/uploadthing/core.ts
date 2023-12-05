@@ -70,7 +70,15 @@ const onUploadComplete = async ({
     const isFreeExceeded =
       pagesAmt > PLANS.find((plan) => plan.name === "Free")!.pagesPerPdf;
 
+    console.log("Processing file with pages:", pagesAmt);
+
     if ((isSubscribed && isProExceeded) || (!isSubscribed && isFreeExceeded)) {
+      console.log("Checking plan limits:", {
+        isSubscribed,
+        isProExceeded,
+        isFreeExceeded,
+      });
+
       const update = await db.file.update({
         data: {
           uploadStatus: "FAILED",
@@ -93,15 +101,33 @@ const onUploadComplete = async ({
       pineconeIndex,
     });
 
+    console.log("Updating file status in database:", {
+      fileId: createdFile.id,
+      status: "FAILED",
+    });
+
     await db.file.update({
       data: { uploadStatus: "SUCCESS" },
       where: { id: createdFile.id },
     });
+
+    if ((isSubscribed && isProExceeded) || (!isSubscribed && isFreeExceeded)) {
+      await db.file.update({
+        data: {
+          uploadStatus: "FAILED",
+        },
+        where: {
+          id: createdFile.id,
+        },
+      });
+    }
   } catch (err) {
     await db.file.update({
       data: { uploadStatus: "FAILED" },
       where: { id: createdFile.id },
     });
+
+    console.log("Error during file processing:", err);
   }
 };
 export const ourFileRouter = {
